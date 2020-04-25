@@ -40,8 +40,8 @@
 							<ul class="main_nav_list">
 								<li class="main_nav_item"><a href="index.jsp">Home</a></li>
 								<li class="main_nav_item"><a href="flight.jsp">Flight</a></li>
-								<li class="menu_item item"><a href="contact.html">Contact</a></li>
-								<li class="main_nav_item"><a href="HotelController?action=view">Hotel</a></li><%
+								<li class="main_nav_item"><a href="contact.html">Contact</a></li>
+								<li class="main_nav_item"><a href="hotel.jsp">Hotel</a></li><%
 								String user = (String)session.getAttribute("user");
 								if(user!=null && user.equals("business")){
 								%>
