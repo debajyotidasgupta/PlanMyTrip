@@ -227,6 +227,11 @@
             <div class="sidebar-box ftco-animate">
               <h3>Paragraph</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+              <form action="HotelController" method="get">
+              <input type="hidden" name="title" value="${hotel[0].rtype}" />
+              <input type="hidden" name="action" value="check" />              
+              <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+              </form>
             </div>
           </div>
         </div>

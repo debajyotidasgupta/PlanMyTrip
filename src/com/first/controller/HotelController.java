@@ -26,14 +26,20 @@ public class HotelController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getParameter("action");
 		String title = req.getParameter("title");
-		if(title!=null && !title.isEmpty()) {
+		if(action!=null && action.equals("check")) {
+			List<Hotel> hotel = hotelDAO.get(title);
+			req.setAttribute("hotel", hotel);
+			dispatcher = req.getRequestDispatcher("/cart.jsp");
+			dispatcher.forward(req, resp);
+		}
+		else if(title!=null && !title.isEmpty()) {
 			List<Hotel> hotel = hotelDAO.get(title);
 			req.setAttribute("hotel", hotel);
 			dispatcher = req.getRequestDispatcher("/room-single-new.jsp");
 			dispatcher.forward(req, resp);
 		}else {
 			if(action==null)action="view";
-			if(action.equals("view")) {
+			else if(action.equals("view")) {
 				List<Hotel> hotel = hotelDAO.get();
 				req.setAttribute("hotel", hotel);
 				dispatcher = req.getRequestDispatcher("/rooms.jsp?fetch=true");
