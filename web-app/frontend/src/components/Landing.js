@@ -6,6 +6,15 @@ import top2 from '../assets/images/top_2.jpg'
 import top3 from '../assets/images/top_3.jpg'
 import top4 from '../assets/images/top_4.jpg'
 
+import popular1 from '../assets/images/popular_1.jpg'
+import popular2 from '../assets/images/popular_2.jpg'
+import popular3 from '../assets/images/popular_3.jpg'
+import popular4 from '../assets/images/popular_4.jpg'
+import popular5 from '../assets/images/popular_5.jpg'
+import popular6 from '../assets/images/popular_6.jpg'
+import popular7 from '../assets/images/popular_7.jpg'
+import popular8 from '../assets/images/popular_8.jpg'
+
 export class Landing extends Component {
 
     render() {
@@ -64,6 +73,60 @@ export class Landing extends Component {
                             <h2>Last Minute Offer</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar sed mauris eget tincidunt. Sed lectus nulla, tempor vel</p>
                             <button>See Offer</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="offer" id="bottom">
+                    <div className="offer-header">
+                        <h2>Popular destinations in 2018</h2>
+                        <h3>TAKE A LOOK AT THESE OFFERS</h3>
+                    </div>
+
+                    <div className="popular-container">
+                        <div className="popular-card-section">
+                            <div className="popular-card">
+                                <img src={ popular1 } />
+                                <h4>From $890</h4>
+                                <h1>Turkey</h1>
+                            </div>
+                            <div className="popular-card">
+                                <img src={ popular2 } />
+                                <h4>From $890</h4>
+                                <h1>Hawaii</h1>
+                            </div>
+                            <div className="popular-card">
+                                <img src={ popular3 } />
+                                <h4>From $890</h4>
+                                <h1>Ireland</h1>
+                            </div>
+                            <div className="popular-card">
+                                <img src={ popular4 } />
+                                <h4>From $890</h4>
+                                <h1>Thailand</h1>
+                            </div>
+                        </div>
+                        <div className="popular-card-section">
+                            <div className="popular-card">
+                                <img src={ popular5 } />
+                                <h4>From $890</h4>
+                                <h1>Croatia</h1>
+                            </div>
+                            <div className="popular-card">
+                                <img src={ popular6 } />
+                                <h4>From $890</h4>
+                                <h1>Bali</h1>
+                            </div>
+                            <div className="popular-card">
+                                <img src={ popular7 } />
+                                <h4>From $890</h4>
+                                <h1>France</h1>
+                            </div>
+                            <div className="popular-card">
+                                <img src={ popular8 } />
+                                <h4>From $890</h4>
+                                <h1>Vietnam</h1>
+                            </div>
                         </div>
                     </div>
                 </div>

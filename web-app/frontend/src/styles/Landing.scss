@@ -148,7 +148,62 @@ button {
   cursor: pointer;
   outline: none;
 
-  &:hover{
+  &:hover {
     opacity: 0.84;
+  }
+}
+
+.popular-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  .popular-card-section {
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    &:nth-of-type(1) {
+      align-items: flex-end;
+    }
+    &:nth-of-type(2) {
+      align-items: flex-start;
+    }
+
+    .popular-card {
+      height: 90%;
+      width: 18%;
+      box-sizing: border-box;
+      position: relative;
+      bottom: 10;
+
+      margin: 10px;
+      color: white;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
+
+      h1,
+      h4 {
+        position: absolute;
+        left: 20px;
+      }
+      h4 {
+        font-size: 12px;
+        font-weight: 400;
+        bottom: 40px;
+      }
+      h1 {
+        font-weight: 700;
+        font-size: 22px;
+        bottom: 10px;
+      }
+    }
   }
 }
