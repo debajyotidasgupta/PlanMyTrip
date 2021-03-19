@@ -1,8 +1,20 @@
 $deep-blue: #131a2f;
 $sweet-pink: #fe435b;
+.bg {
+    background-image: url("../assets/images/home.jpg");
+    background-position: -100px;
+    height: 100vh;
+    width: 120%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .paper {
     display: flex;
-    position: fixed;
+    position: absolute;
+    top: 0;
+    bottom: 0;
     margin: 300px 250px;
     height: 50vh;
     width: 40vw;
