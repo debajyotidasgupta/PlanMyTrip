@@ -21,7 +21,7 @@ export class Nav extends Component {
                     <li className=""><a href="#">Offers</a></li>
                     <li className=""><a href="#">Blogs</a></li>
                     <li className=""><a href="#">Contact</a></li>
-                    <li className=""><a href="#">Login</a></li>
+                    <li className=""><a href="/login">Login</a></li>
                 </ul>
 
                 <div className="search-class">
