@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700;900&display=swap");
+
+$deep-blue: #131a2f;
+$sweet-pink: #fe435b;
+
 .landing {
   background-image: url("../assets/images/home.jpg");
   background-position: -100px;
@@ -60,14 +65,13 @@
       box-sizing: border-box;
       background-color: green;
 
-
       position: relative;
       height: 80%;
       width: 20%;
 
       color: white;
 
-      img{
+      img {
         height: 100%;
         width: 100%;
         vertical-align: middle;
@@ -90,5 +94,61 @@
         bottom: 2%;
       }
     }
+  }
+}
+
+.last {
+  height: 100vh;
+  width: 100%;
+  background-image: url("../assets/images/last.jpg");
+  background-position: -100px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .last-card {
+    box-sizing: border-box;
+    height: 80%;
+    width: 30%;
+    padding: 90px;
+
+    color: white;
+    background-color: rgba(254, 67, 91, 0.8);
+
+    .last-card-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      #head {
+        font-size: 2em;
+        font-weight: 400;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+      .last-pt {
+        font-size: 8em;
+        font-weight: 200;
+        margin: 0;
+      }
+      p {
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+
+button {
+  box-sizing: border-box;
+  color: white;
+  border: none;
+  background-color: $deep-blue;
+  padding: 20px 30px;
+  cursor: pointer;
+  outline: none;
+
+  &:hover{
+    opacity: 0.84;
   }
 }

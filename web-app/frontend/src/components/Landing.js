@@ -15,8 +15,8 @@ export class Landing extends Component {
                     <h1>discover</h1>
                     <h3>Discover new worlds</h3>
                 </div>
-                <div className="offer">
 
+                <div className="offer">
                     <div className="offer-header">
                         <h2>Top destinations in Europe</h2>
                         <h3>TAKE A LOOK AT THESE OFFERS</h3>
@@ -45,6 +45,29 @@ export class Landing extends Component {
                         </div>
                     </div>
                 </div>
+
+                <div className="last">
+                    <div className="last-card">
+                        <div className="last-card-content">
+                            <h3 id="head">Bali</h3>
+                            <div className="last-pt">55%</div>
+                            <h2>Last Minute Offer</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar sed mauris eget tincidunt. Sed lectus nulla, tempor vel</p>
+                            <button>See Offer</button>
+                        </div>
+                    </div>
+
+                    <div className="last-card">
+                        <div className="last-card-content">
+                            <h3 id="head">Bali</h3>
+                            <div className="last-pt">55%</div>
+                            <h2>Last Minute Offer</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar sed mauris eget tincidunt. Sed lectus nulla, tempor vel</p>
+                            <button>See Offer</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         )
     }
