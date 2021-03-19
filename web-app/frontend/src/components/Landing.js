@@ -5,7 +5,10 @@ export class Landing extends Component {
     render() {
         return (
             <div className="main">
-                
+                <div className="landing">
+                    <h1>discover</h1>
+                    <h3>Discover new worlds</h3>
+                </div>
             </div>
         )
     }
