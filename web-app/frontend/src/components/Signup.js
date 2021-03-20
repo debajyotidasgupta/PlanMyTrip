@@ -9,7 +9,7 @@ export class Signup extends Component {
             <div className="bg">
             </div>
             <div className="paper">
-                <form className="form" noValidate>
+                <form className="form-signup" noValidate>
                     <div class="row">
                     <div class="column">
                     <div class="form-input">

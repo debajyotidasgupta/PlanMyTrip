@@ -9,7 +9,7 @@ export class Login extends Component {
             <div className="bg">
             </div>
             <div className="paper">
-                <form className="form" noValidate>
+                <form className="form-login" noValidate>
                     <div class="form-input">
                         <input type="email" name="email" required/>
                         <label>Email address</label>
