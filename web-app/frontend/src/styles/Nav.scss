@@ -10,24 +10,22 @@ nav {
   margin: 0 250px;
   margin-top: 15px;
   margin-bottom: 50px;
-  height: 15vh;
+  height: 12vh;
   width: 70vw;
 
   .logo {
-
-    width: 35%;
+    width: 30%;
     display: flex;
     justify-content: left;
     align-items: center;
     margin-left: 3vw;
-    
 
     .company {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       z-index: 2;
-      
+
       h2 {
         margin: 0px;
         letter-spacing: 0.1em;
@@ -45,24 +43,89 @@ nav {
     }
   }
 
+  li {
+    height: 100%;
+    width: 100%;
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      height: 100%;
+      width: 100%;
+      &:hover {
+        background-color: $sweet-pink;
+        color: $deep-blue;
+      }
+    }
+  }
+
   .nav-links {
     list-style: none;
     display: flex;
     margin: 0;
     height: 100%;
-    width: 50%;
+    width: 100%;
     align-items: center;
     justify-content: space-around;
     padding-left: 50px;
 
-    a {
-      text-decoration: none;
-      color: white;
+    .drop {
+      position: relative;
+      height: 100%;
+      width: 100%;
+
+      .drop-content {
+        visibility: hidden;
+
+        z-index: 2;
+        box-shadow: 5px 10px 18px red;
+        background-color: $deep-blue;
+        box-sizing: border-box;
+        margin: 0;
+
+        ul {
+          list-style: none;
+          padding: 0;
+          transition: display 1s;
+
+          li {
+            box-sizing: border-box;
+            height: 70px;
+            width: 150px;
+            a {
+              height: 100%;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              box-sizing: border-box;
+              padding: auto;
+
+              &:hover {
+                background-color: $sweet-pink;
+                color: $deep-blue;
+              }
+            }
+          }
+        }
+      }
+      &:hover {
+        .drop-content {
+          visibility: visible;
+        }
+      }
     }
+
+    
 
     .active {
       a {
         color: $sweet-pink;
+        &:hover{
+          color: $deep-blue;
+        }
       }
     }
   }
