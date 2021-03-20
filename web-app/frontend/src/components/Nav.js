@@ -23,7 +23,7 @@ export class Nav extends Component {
                         <div className="drop-content">
                             <ul>
                                 <li><a href="#">Hotel</a></li>
-                                <li><a href="#">Flight</a></li>
+                                <li><a href="/flight">Flight</a></li>
                                 <li><a href="#">Cruise</a></li>
                                 <li><a href="#">Train</a></li>
                                 <li><a href="#">Bus</a></li>
