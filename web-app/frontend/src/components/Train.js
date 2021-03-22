@@ -54,7 +54,7 @@ export class Train extends Component {
                         <div className="row">
                             <div className="column">
                                 <div class="form-input">
-                                    <input type="date" name="dob" required label="Date-of-journey"/>
+                                    <input type="date" name="doj" required label="Date-of-journey"/>
                                     <label style={{color:"white"}}>Date of Journey</label>
                                 </div>
                             </div>

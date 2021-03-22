@@ -66,7 +66,7 @@ export class Flight extends Component {
                         <div className="row">
                             <div className="column">
                                 <div class="form-input">
-                                    <input type="date" name="dob" required label="Date-of-journey"/>
+                                    <input type="date" name="doj" required label="Date-of-journey"/>
                                     <label style={{color:"#131a2f"}}>Date of Journey</label>
                                 </div>
                             </div>
