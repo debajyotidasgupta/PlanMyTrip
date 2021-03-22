@@ -4,14 +4,33 @@ import {Button} from '@material-ui/core'
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import FlightIcon from '@material-ui/icons/Flight'
+import { Redirect } from 'react-router-dom'
 
 export class Flight extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            submitted: false,
+        };
+    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState({
+            submitted: true,
+        });
+        console.log(this.state.submitted);
+    }
     render() {
+        if (this.state.submitted){
+            return(
+                <Redirect to={"/flight/results"}/>
+            );
+        }
         return(
             <div className="main">
                 <div className="bg-flight"></div>
                 <div className="paper">
-                    <form className="form-flight" noValidate>
+                    <form className="form-flight" onSubmit={this.handleSubmit} noValidate>
                         <div className="row">
                             <div className="column-left">
                                 <div className="form-input">

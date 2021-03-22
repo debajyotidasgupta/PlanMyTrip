@@ -18,6 +18,7 @@ function App() {
         <Route exact path="/signup" component={ Signup }></Route>
         <Route exact path="/" component={ Landing }></Route>
         <Route exact path="/flight" component={ Flight }></Route>
+        <Route exact path="/flight/results" component={ Landing }></Route>
       </div>
     </Router>
   );
