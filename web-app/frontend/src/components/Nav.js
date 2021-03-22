@@ -25,7 +25,7 @@ export class Nav extends Component {
                                 <li><a href="#">Hotel</a></li>
                                 <li><a href="/flight">Flight</a></li>
                                 <li><a href="#">Cruise</a></li>
-                                <li><a href="#">Train</a></li>
+                                <li><a href="/train">Train</a></li>
                                 <li><a href="#">Bus</a></li>
                             </ul>
                         </div>
