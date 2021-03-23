@@ -9,7 +9,7 @@ export class Nav extends Component {
         return (
             <nav>
                 <div className="logo">
-                    <img src={ logo } alt="logo"/>
+                    <img src={ logo } alt="logo" />
                     <div className="company">
                         <h2>PLANMYTRIP</h2>
                         <h4>TRAVEL AGENCY</h4>
@@ -23,9 +23,9 @@ export class Nav extends Component {
                         <div className="drop-content">
                             <ul>
                                 <li><a href="#">Hotel</a></li>
-                                <li><a href="#">Flight</a></li>
+                                <li><a href="/flight">Flight</a></li>
                                 <li><a href="#">Cruise</a></li>
-                                <li><a href="#">Train</a></li>
+                                <li><a href="/train">Train</a></li>
                                 <li><a href="#">Bus</a></li>
                             </ul>
                         </div>

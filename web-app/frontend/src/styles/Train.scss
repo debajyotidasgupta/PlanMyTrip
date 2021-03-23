@@ -1,0 +1,138 @@
+$deep-blue: #131a2f;
+$sweet-pink: #fe435b;
+.bg-train {
+    background-image: url("../assets/images/train.jpg");
+    background-size: 100% 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    position: fixed;
+    height: 100vh;
+    width: 100vh;
+    display: flex;
+    width: 120%;
+}
+/*.paper {
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: 250px 250px;
+    height: 50vh;
+    width: 50vw;
+    overflow: hidden;
+}*/
+.form-train {
+    width: 70%;
+    height: 50vh;
+    .row{
+        display: flex;
+        margin-top: 6px;
+        margin-bottom: -20px;
+    }
+    .column{
+        flex: 80%;
+        margin-left: 5%;
+        margin-right: 11.4%;
+    }
+    .column-left{
+        flex: 80%;
+        margin-left: 5%;
+    }
+    .column-right{
+        flex: 20%;
+        margin-right: 5%;
+        margin-top: 1.6%;
+    }
+    .form-input {
+        position: relative;
+        width: 101%;
+        input {
+            width: 99%;
+            padding: 10px 2px;
+            font-size: 16px;
+            color: $deep-blue;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 3px solid white;
+            outline: none;
+            background: transparent;
+            font-weight: bold;
+        }
+        input[type=date] {
+            text-align-last: right;
+        }
+        label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 10px 0;
+            font-size: 16px;
+            color: white;
+            pointer-events: none;
+            transition: .5s;
+            font-weight: bold;
+        }
+        input:focus ~ label,
+        input:valid ~ label {
+            top: -20px;
+            left: 0;
+            color: white;
+            font-size: 13px;
+        }
+        
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-indent: 1px;
+            text-overflow: '';
+            width: 100%;
+            padding: 10px 2px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 30px;
+            border: none;
+            border-bottom: 3px solid white;
+            outline: none;
+            background: transparent;
+            padding-left: 0;
+            .form-icon {
+                position: absolute;
+                padding: 10px;
+                min-width: 40px;
+            }
+        }
+    }
+    .submit {
+        background-color: $sweet-pink;
+        width: 50%;
+        bottom: 200;
+    }
+    .submit:hover{
+        background-color: $deep-blue;
+    }
+    .links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: space-around;
+        padding-left: 25px;
+        padding-right: 25px;
+    
+        a {
+          text-decoration: none;
+          color: white;
+        }
+    
+        .active {
+          a {
+            color: $sweet-pink;
+          }
+        }
+    }
+}
+
