@@ -19,6 +19,7 @@ nav {
     justify-content: left;
     align-items: center;
     margin-left: 3vw;
+    cursor: pointer;
 
     .company {
       display: flex;
@@ -27,6 +28,7 @@ nav {
       z-index: 2;
 
       h2 {
+        line-height: 1.2;
         margin: 0px;
         letter-spacing: 0.1em;
         font-weight: 700;
@@ -34,11 +36,12 @@ nav {
         padding-bottom: 5px;
       }
       h4 {
+        line-height: 1.2;
         margin: 0px;
         letter-spacing: 0.2em;
-        color: #7e90c7;
+        color: #bdc2cf;
         font-size: 10px;
-        font-weight: 100;
+        font-weight: 200;
       }
     }
   }

@@ -9,7 +9,7 @@ export class Nav extends Component {
         return (
             <nav>
                 <div className="logo">
-                    <img src={ logo } alt="logo" />
+                    <img src={ logo } alt="logo"/>
                     <div className="company">
                         <h2>PLANMYTRIP</h2>
                         <h4>TRAVEL AGENCY</h4>
