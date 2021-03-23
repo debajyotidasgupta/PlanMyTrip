@@ -24,18 +24,33 @@ export class Login extends Component {
     }
     handleSubmit = e=>{
         e.preventDefault();
-        const user = {
-            email: this.state.email,
-            password: this.state.password,
-        }
         
-        axios.post('http://127.0.0.1:5000/auth/login',{user},{withCredentials: true}).then(res=>{
+        /*axios.post('https://0468eb026a63.ap.ngrok.io/auth/login',{user},{withCredentials: true}).then(res=>{
             console.log("Pakistan")
             console.log(res.body);
             return(
                 <Redirect to={"/light/results"}/>
             );
+        })*/
+        var myHeaders = new Headers();
+        myHeaders.append("Cookie", document.cookie);
+
+        //var requestOptions = ;
+
+        //console.log(requestOptions);
+        myHeaders.append("Content-type","application/json");
+        fetch("http://127.0.0.1:5000/auth/login", {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.password,
+            }),
+            credentials: 'same-origin'
         })
+        .then(response => {
+            console.log(response);
+        });
     }
     render(){
     return (
