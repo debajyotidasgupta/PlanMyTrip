@@ -2,6 +2,7 @@
 Crude ORM implementation
 """
 from flask_mysqldb import MySQL
+from MySQLdb import escape_string
 
 db = MySQL()
 
@@ -119,6 +120,9 @@ class Model:
 
     @staticmethod
     def formatInput(s, col):
+        s = escape_string(s)
+        if type(s) == bytes:
+            s = s.decode()
         col = col.lower()
         if (" int" in col) or\
         (" float" in col) or\
@@ -144,6 +148,8 @@ class Query(Model):
             cursor = db.connection.cursor()
             cursor.execute(q)
             row = cursor.fetchone()
+            if row is None:
+                return row
             if self.model is not None:
                 row = self.model(**row)
             return row
@@ -168,3 +174,28 @@ class Query(Model):
 
     def __repr__(self):
         return "Query(" + self.query + ")"
+
+
+
+class Transaction(Model):
+    def __init__(self, query, model=None):
+        super().__init__()
+        self.model = model
+
+        if type(query) != list:
+            query = [query]
+
+        self.query = ["START TRANSACTION;"] + query + ["COMMIT"]
+
+    def execute(self):
+        q = "\n".join(self.query)
+        print(q)
+        try:
+            cursor = db.connection.cursor()
+            cursor.execute(q)
+        except Exception as e:
+            print("Error:", e)
+
+
+    def __repr__(self):
+        return "Transaction(" + "\n".join(self.query) + ")"

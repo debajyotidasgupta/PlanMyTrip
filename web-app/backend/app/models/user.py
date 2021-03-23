@@ -1,6 +1,7 @@
-from app.models.base import Model
+from flask_login import UserMixin
+from app.models.base import Model, Query
 
-class User(Model):
+class User(Model, UserMixin):
     SCHEMA = {
         "user_id": "user_id int PRIMARY KEY AUTO_INCREMENT",
         "name": "name varchar(255) NOT NULL",
@@ -11,6 +12,18 @@ class User(Model):
         "rating": "rating decimal",
         "password": "password varchar(255) NOT NULL"
     }
+
+    def get_id(self, id):
+        # Flask Login boilerplate
+        try:
+            id = int(id)
+            q = Query("SELECT * FROM User WHERE user_id = {};", model=self.__class__)
+            return q.getOne(id)
+        except Exception:
+            return None
+
+
+
 
 
 class UserAddress(Model):
