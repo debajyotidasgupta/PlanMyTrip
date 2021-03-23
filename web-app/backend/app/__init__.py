@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restplus import Api
+from flask_cors import CORS
 
 from app.config import CONFIG
 from app.models import db
@@ -15,7 +16,7 @@ db.app = app
 db.init_app(app)
 login_manager.init_app(app)
 app.config.from_mapping(**CONFIG)
-
+cors = CORS(app)
 
 api = Api(app)
 
