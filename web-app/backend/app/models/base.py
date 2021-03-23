@@ -69,6 +69,7 @@ class Model:
             cursor.execute(query)
         except Exception as e:
             print("Error:", e)
+            raise e
 
     
     @classmethod
@@ -95,6 +96,7 @@ class Model:
             cursor.execute(query)
         except Exception as e:
             print("Error:", e)
+            raise e
 
 
     @classmethod
@@ -112,6 +114,7 @@ class Model:
             cursor.execute(query)
         except Exception as e:
             print("Error:", e)
+            raise e
 
 
     def __repr__(self):
@@ -144,32 +147,26 @@ class Query(Model):
         q = str(self.query).format(*args)
         print(q)
 
-        try:
-            cursor = db.connection.cursor()
-            cursor.execute(q)
-            row = cursor.fetchone()
-            if row is None:
-                return row
-            if self.model is not None:
-                row = self.model(**row)
+        cursor = db.connection.cursor()
+        cursor.execute(q)
+        row = cursor.fetchone()
+        if row is None:
             return row
-        except Exception as e:
-            print("Error:", e)
+        if self.model is not None:
+            row = self.model(**row)
+        return row
 
 
     def getAll(self, *args):
         q = str(self.query).format(*args)
         print(q)
 
-        try:
-            cursor = db.connection.cursor()
-            cursor.execute(q)
-            row = cursor.fetchall()
-            if self.model is not None:
-                row = [self.model(**a) for a in row]
-            return row
-        except Exception as e:
-            print("Error:", e)
+        cursor = db.connection.cursor()
+        cursor.execute(q)
+        row = cursor.fetchall()
+        if self.model is not None:
+            row = [self.model(**a) for a in row]
+        return row
 
 
     def __repr__(self):

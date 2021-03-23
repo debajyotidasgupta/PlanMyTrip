@@ -10,5 +10,5 @@ CONFIG = {
     "MYSQL_HOST": getenv("MYSQL_HOST", "localhost"),
     "MYSQL_PORT": getenv("MYSQL_PORT", 3306),
     "MYSQL_CURSORCLASS": 'DictCursor',
-    "secret_key": getenv("SECRET_KEY", "chupkesechupkesechandkeanchaltale")
+    "SECRET_KEY": getenv("SECRET_KEY", "chupkesechupkesechandkeanchaltale")
 }

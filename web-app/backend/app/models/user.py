@@ -5,7 +5,7 @@ class User(Model, UserMixin):
     SCHEMA = {
         "user_id": "user_id int PRIMARY KEY AUTO_INCREMENT",
         "name": "name varchar(255) NOT NULL",
-        "email": "email varchar(255) NOT NULL",
+        "email": "email varchar(255) NOT NULL UNIQUE",
         "phone": "phone int",
         "user_type": "user_type ENUM ('general', 'business')",
         "dob": "dob date NOT NULL",
@@ -13,14 +13,9 @@ class User(Model, UserMixin):
         "password": "password varchar(255) NOT NULL"
     }
 
-    def get_id(self, id):
+    def get_id(self):
         # Flask Login boilerplate
-        try:
-            id = int(id)
-            q = Query("SELECT * FROM User WHERE user_id = {};", model=self.__class__)
-            return q.getOne(id)
-        except Exception:
-            return None
+        return str(self.user_id)
 
 
 
