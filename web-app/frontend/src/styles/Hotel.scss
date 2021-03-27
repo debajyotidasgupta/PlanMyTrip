@@ -1,0 +1,113 @@
+$deep-blue: #131a2f;
+$sweet-pink: #fe435b;
+$ochere: rgba(145, 118, 5, 0.75);
+
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@1,200&display=swap");
+
+.big {
+  height: 100vh;
+  width: 100vw;
+}
+
+.header {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../assets/images/bg_1.jpg");
+  background-position: -100px;
+  position: absolute;
+  top: 0;
+
+  h1 {
+    position: absolute;
+    top: 250px;
+    left: 100px;
+    color: white;
+    font-family: "PT Serif", serif;
+    font-weight: 200;
+    font-size: 5em;
+  }
+  h3 {
+    position: absolute;
+    top: 380px;
+    left: 100px;
+    color: white;
+    // font-family: 'PT Serif', serif;
+    font-weight: 700;
+    font-size: 1.5em;
+  }
+
+  .form {
+    position: absolute;
+    bottom: 50px;
+    left: 30px;
+    background-color: $ochere;
+    height: 20vh;
+    width: 80vw;
+    display: flex;
+
+    .content {
+      width: 80%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: relative;
+      box-sizing: border-box;
+      margin-top: 10px;
+
+      .box {
+        height: 13vh;
+        width: 28vh;
+        background-color: white;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 4;
+
+        label {
+          padding-left: 20px;
+          text-decoration: none;
+          text-transform: uppercase;
+          font-weight: 600;
+          font-size: 0.8em;
+        }
+
+        input,
+        select {
+          padding-left: 20px;
+          text-decoration: none;
+          color: black !important;
+          border: none !important;
+          font-weight: 700;
+          background: transparent;
+          font-family: "PT Serif", serif;
+          font-size: 1.1em;
+          outline: none;
+        }
+      }
+    }
+
+    .side {
+      width: 20%;
+      display: flex;
+      background-color: black;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding-top: 50px;
+
+      .ha {
+        color: white;
+        font-size: 1em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2;
+    }
+    .hb {
+        text-transform: uppercase;
+        color: rgb(145, 118, 5);
+        font-size: 1em;
+        font-weight: 600;
+      }
+    }
+  }
+}
