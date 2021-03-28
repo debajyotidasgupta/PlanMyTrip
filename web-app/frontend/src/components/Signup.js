@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import '../styles/Signup.scss'
 import {Button} from '@material-ui/core'
 
+var emailRegEx = new RegExp(/^[a-zA-Z0-9]+@[a-zA-z0-9]+.[a-zA-Z]+/);
+
 export class Signup extends Component {
     constructor(props){
         super(props);
@@ -12,7 +14,42 @@ export class Signup extends Component {
             password: '',
             confirmPassword: '',
             user_type: 'general',
-            phone: 0
+            phone: ''
+        }
+    }
+    validateInputs = ()=>{
+        if(this.state.name.length < 1){
+            alert('Name required');
+            return false;
+        }
+        else if(this.state.dob.length < 1){
+            alert('Date of birth required');
+            return false;
+        }
+        else if(!emailRegEx.test(this.state.email))
+        {
+            alert('Enter valid email address');
+            return false;
+        }
+        else if(this.state.password.length < 8){
+            alert('Password should be at least 8 characters long');
+            return false;
+        }
+        else if(this.state.password!==this.state.confirmPassword){
+            alert('Confirm password did not match');
+            return false;
+        }
+        else if(isNaN(this.state.phone) || this.state.phone.length!==10){
+            alert('Enter a 10 digit phone no');
+            return false;
+        }
+        else{
+            this.setState({
+                phone: Number(this.state.phone)
+            },()=>{
+                return true;
+            });
+            return true;
         }
     }
     handleNameChange = e=>{
@@ -33,11 +70,17 @@ export class Signup extends Component {
     handleConfirmPasswordChange= e=>{
         this.setState({
             confirmPassword: e.target.value,
+        },()=>{
+            console.log("confirm value="+this.state.confirmPassword);
+            if(this.state.password !== this.state.confirmPassword)
+            {
+                document.getElementsByName("confirm-password")[0].style.color = "red";
+            }
+            else
+            {
+                document.getElementsByName("confirm-password")[0].style.color = "white";
+            }
         });
-        if(this.state.password !== this.state.confirmPassword)
-        {
-            document.getElementsByName("confirm-password")[0].style.color = "red";
-        }
     }
     handleUserTypeChange= e=>{
         this.setState({
@@ -45,23 +88,27 @@ export class Signup extends Component {
         })
     }
     handlePhoneChange= e=>{
-        this.setState({
-            phone: Number(e.target.value),
-        })
-        if(this.phone<100000000 || this.phone>9999999999)
-        {
+        if(isNaN(e.target.value)){
             document.getElementsByName("phone")[0].style.color = "red";
+        }
+        else{
+            this.setState({
+                phone: e.target.value,
+            },()=>{
+                if(isNaN(this.state.phone) || this.state.phone.length!==10)
+                {
+                    document.getElementsByName("phone")[0].style.color = "red";
+                }
+                else
+                {
+                    document.getElementsByName("phone")[0].style.color = 'white';
+                }
+            })
         }
     }
     handleDobChange = e=>{
-        var dob = e.target.value;
-        var sql_dob = '';
-        var year = e.target.value.substr(6,4);
-        var month= e.target.value.substr(3,2);
-        var date = e.target.value.substr(0,2);
-        sql_dob.concat(year,'-',month,'-',date);
         this.setState({
-            dob: sql_dob,
+            dob: e.target.value,
         });
     }
     handleSubmit = e=>{
@@ -74,28 +121,31 @@ export class Signup extends Component {
                 <Redirect to={"/light/results"}/>
             );
         })*/
-        var myHeaders = new Headers();
-        myHeaders.append("Cookie", document.cookie);
+        if(this.validateInputs())
+        {
+            var myHeaders = new Headers();
+            myHeaders.append("Cookie", document.cookie);
 
-        //var requestOptions = ;
+            //var requestOptions = ;
 
-        //console.log(requestOptions);
-        myHeaders.append("Content-type","application/json");
-        fetch("http://127.0.0.1:5000/auth/register", {
-            method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-                dob: this.state.dob,
-                name: this.state.name,
-                phone: this.state.phone                
-            }),
-            credentials: 'same-origin'
-        })
-        .then(response => {
-            console.log(response);
-        });
+            //console.log(requestOptions);
+            myHeaders.append("Content-type","application/json");
+            fetch("http://127.0.0.1:5000/auth/register", {
+                method: 'POST',
+                headers: myHeaders,
+                body: JSON.stringify({
+                    email: this.state.email,
+                    password: this.state.password,
+                    dob: this.state.dob,
+                    name: this.state.name,
+                    phone: this.state.phone                
+                }),
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                console.log(response);
+            });
+        }
     }
     render(){
     return (
