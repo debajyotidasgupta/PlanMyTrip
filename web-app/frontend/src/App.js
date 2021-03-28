@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/" component={ Landing }></Route>
         <Route exact path="/hotel" component={ Hotel }></Route>
         <Route exact path="/flight" component={ Flight }></Route>
-        <Route exact path="/flight/results" component={ Landing }></Route>
+        <Route exact path="/flight/results" render={(props)=> <Landing/>}></Route>
         <Route exact path="/train" component={ Train }></Route>
         <Route exact path="/train/results" component={ Landing }></Route>
         {/* <Footer /> */ }
