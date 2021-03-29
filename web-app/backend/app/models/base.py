@@ -186,7 +186,7 @@ class Transaction(Model):
         if type(query) != list:
             query = [query]
 
-        self.query = ["START TRANSACTION;"] + query + ["COMMIT"]
+        self.query = ["START TRANSACTION;"] + query + ["COMMIT;"]
 
     def execute(self):
         q = "\n".join(self.query)
@@ -196,7 +196,7 @@ class Transaction(Model):
             cursor.execute(q)
         except Exception as e:
             print("Error:", e)
-
+            raise e
 
     def __repr__(self):
         return "Transaction(" + "\n".join(self.query) + ")"

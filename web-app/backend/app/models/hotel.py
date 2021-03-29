@@ -36,6 +36,7 @@ class HotelBooking(Model):
         "special_request": "special_request varchar(255)",
         "amount": "amount decimal(10,2) NOT NULL",
         "is_paid": "is_paid boolean NOT NULL DEFAULT 0",
+        "booking_id": "booking_id VARCHAR(100) UNIQUE",
         "!pk": "PRIMARY KEY (user_id, hotel_id, room_no, start_date, end_date)",
         "!fk1": "FOREIGN KEY (user_id) REFERENCES User (user_id) ON DELETE CASCADE",
         "!fk2": "FOREIGN KEY (hotel_id, room_no) REFERENCES Room (hotel_id, room_no) ON DELETE CASCADE"
