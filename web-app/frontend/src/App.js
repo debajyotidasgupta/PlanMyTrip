@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/signup" component={ Signup }></Route>
         <Route exact path="/" component={ Landing }></Route>
         <Route exact path="/hotel" component={ Hotel }></Route>
-        <Route exact path="/flight" component={ Flight }></Route>
+        <Route exact path="/flight" render={(props)=><Flight {...props}/>}></Route>
         <Route exact path="/flight/results" render={(props)=><FlightBooking {...props}/> }></Route>
         <Route exact path="/flight/booking" render={(props)=><FlightBookingFinal {...props}/>}></Route>
         <Route exact path="/train" component={ Train }></Route>
