@@ -16,7 +16,7 @@ db.app = app
 db.init_app(app)
 login_manager.init_app(app)
 app.config.from_mapping(**CONFIG)
-cors = CORS(app)
+cors = CORS(app,supports_credentials=True)
 
 api = Api(app)
 
