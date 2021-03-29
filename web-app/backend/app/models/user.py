@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from app.models.base import Model, Query
+from app.models.base import Model
 
 class User(Model, UserMixin):
     SCHEMA = {
@@ -16,6 +16,11 @@ class User(Model, UserMixin):
     def get_id(self):
         # Flask Login boilerplate
         return str(self.user_id)
+
+    def get_info(self):
+        return {
+            k: self.__dict__[k] for k in self.SCHEMA.keys()
+        }
 
 
 

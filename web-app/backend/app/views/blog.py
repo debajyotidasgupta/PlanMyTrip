@@ -22,7 +22,7 @@ class blogs(Resource):
         resultSet = Query('SELLECT * FROM Blog ORDER BY rating ASC', model = Blog)
         all_blogs = resultSet.getAll()
 
-        if len(all_blog)!=0:
+        if len(all_blogs)!=0:
             return {
                 "message": "No blog found for now"
             }, 201

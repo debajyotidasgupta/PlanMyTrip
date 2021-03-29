@@ -43,9 +43,7 @@ class LoginUser(Resource):
             assert check_password(req["password"], usr.password)
 
             login_user(usr)
-            return {
-                "message": "User logged in successfully"
-            }, 200
+            return usr.get_info(), 200
         except Exception as e:
             return {
                 "message": "Could not log in " + str(e)
