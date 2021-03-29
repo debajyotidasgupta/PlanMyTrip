@@ -32,7 +32,7 @@ export class Nav extends Component {
                     </div>
 
                     <li className=""><a href="#">Offers</a></li>
-                    <li className=""><a href="#">Blogs</a></li>
+                    <li className=""><a href="/blog">Blogs</a></li>
                     <li className=""><a href="#">Contact</a></li>
                     <li className=""><a href="/login">Login</a></li>
                 </ul>
