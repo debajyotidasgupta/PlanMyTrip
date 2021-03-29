@@ -7,9 +7,10 @@ class Blog(Model):
         "author_id": "author_id int",
         "created_at": "created_at datetime default(current_timestamp())",
         "title": "title varchar(255)",
+        "url": "url varchar(1000)",
         "rating": "rating int default(3)",
-        "short_description": "short_description varchar(255)",
-        "content": "content text",
+        "short_description": "short_description varchar(1000)",
+        "content": "content varchar(10000)",
         "!fk1": "foreign key (`author_id`) references User (`user_id`)"
     }
 

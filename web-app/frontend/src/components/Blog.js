@@ -1,8 +1,24 @@
 import { Button } from '@material-ui/core'
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import '../styles/Blog.scss'
+import axios from 'axios'
 
 export default class Blog extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            blogs: []
+        }
+    }
+
+    componentDidMount() {
+        axios.get('/api/blog/').then(res => {
+            this.setState({
+                blogs: res.data.blogs
+            })
+            console.log(this.state)
+        })
+    }
 
     render() {
         return (
@@ -19,42 +35,29 @@ export default class Blog extends Component {
 
                 <div className="content">
                     <div className="blogs">
-                        <SingleBlog
-                            url="https://trabeauli.com/wp-content/uploads/2018/04/Italy.jpg"
-                            author="Debajyoti Dasgupta"
-                            date="29 January, 2021"
-                            commentsNo="1"
-                            title="Travel Around The World"
-                            shortDescription="Italy is an enticing country. It is such a wonderful and best place that it is almost impossible to define its beauty with the help of a few words. It is a beautiful, serene, spell-binding, alluring and mesmerizing country. Be it a child, young, or an old person everyone is awestruck by its magical disposition. Maybe this is the reason why visiting Italy is a part of the bucket list of so many people. It pre-possesses a rich history, some of the world’s most famous monuments such as the Leani"
-                            blog_id="1"
-                        />
-                        <SingleBlog
-                            url="https://cdn.e-konomista.pt/uploads/2019/07/simon-migaj-471526-unsplash_1525947999.jpg"
-                            author="Debajyoti Dasgupta"
-                            date="29 January, 2021"
-                            commentsNo="1"
-                            title="Top destinations in Europe"
-                            shortDescription="Italy is an enticing country. It is such a wonderful and best place that it is almost impossible to define its beauty with the help of a few words. It is a beautiful, serene, spell-binding, alluring and mesmerizing country. Be it a child, young, or an old person everyone is awestruck by its magical disposition. Maybe this is the reason why visiting Italy is a part of the bucket list of so many people. It pre-possesses a rich history, some of the world’s most famous monuments such as the Leani"
-                            blog_id="1"
-                        />
+                        { this.state.blogs.map(blog =>
+                            <SingleBlog
+                                url={ blog.url }
+                                author={ blog.name }
+                                date={ blog.created_at }
+                                rating={ blog.rating }
+                                title={ blog.title }
+                                shortDescription={ blog.short_description }
+                                blog_id={ blog.blog_id }
+                            />
+                        ) }
                     </div>
                     <div className="sidebar">
-                        <SingleSide
-                            url="https://trabeauli.com/wp-content/uploads/2018/04/Italy.jpg"
-                            author="Debajyoti"
-                            date="29 January 2021"
-                            commentsNo="1"
-                            title="Travel Around The World"
-                            blog_id="1"
-                        />
-                        <SingleSide
-                            url="https://cdn.e-konomista.pt/uploads/2019/07/simon-migaj-471526-unsplash_1525947999.jpg"
-                            author="Debajyoti"
-                            date="29 January, 2021"
-                            commentsNo="1"
-                            title="Top destinations in Europe"
-                            blog_id="1"
-                        />
+                        { this.state.blogs.map(blog =>
+                            <SingleSide
+                                url={ blog.url }
+                                author={ blog.name }
+                                date={ blog.created_at }
+                                rating={ blog.rating }
+                                title={ blog.title }
+                                blog_id={ blog.blog_id }
+                            />
+                        ) }
                     </div>
                 </div>
             </div>
@@ -70,13 +73,13 @@ class SingleBlog extends Component {
     render() {
         return (
             <div className="single">
-                <h1><a href={ "blog/" + this.props.blog_id }>{ this.props.title }</a></h1>
+                <h1><a href={ "singleBlog/" + this.props.blog_id }>{ this.props.title }</a></h1>
                 <div className="meta">
                     <h4>{ this.props.author }</h4>
                     <h4>|</h4>
                     <h4>{ this.props.date }</h4>
                     <h4>|</h4>
-                    <h4>{ this.props.commentsNo } comments</h4>
+                    <h4>{ this.props.rating } star</h4>
                 </div>
                 <img src={ this.props.url } />
                 <p>{ this.props.shortDescription }</p>
@@ -94,13 +97,13 @@ class SingleSide extends Component {
         return (
             <div className="single-side">
                 <img src={ this.props.url } />
-                <h1><a href={ "blog/" + this.props.blog_id }>{ this.props.title }</a></h1>
+                <h1><a href={ "singleBlog/" + this.props.blog_id }>{ this.props.title }</a></h1>
                 <div className="meta">
                     <h4>{ this.props.author }</h4>
                     <h4>|</h4>
                     <h4>{ this.props.date }</h4>
                     <h4>|</h4>
-                    <h4>{ this.props.commentsNo } comments</h4>
+                    <h4>{ this.props.rating } star</h4>
                 </div>
             </div>
         )

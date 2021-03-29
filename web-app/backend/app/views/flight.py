@@ -49,7 +49,7 @@ class FlightGet(Resource):
 
 @api.route("/booking")
 class HotelBook(Resource):
-    @api.expect(hotel, validate=True)
+    # @api.expect(hotel, validate=True)
     @login_required
     def post(self):
         usr = current_user

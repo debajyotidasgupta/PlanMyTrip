@@ -17,7 +17,6 @@ hotel = api.model('Hotel', {
     'no_of_persons': fields.Integer('Number of person you are booking for')
 })
 
-
 @api.route('/')
 class HotelGet(Resource):
     @api.doc(params={
