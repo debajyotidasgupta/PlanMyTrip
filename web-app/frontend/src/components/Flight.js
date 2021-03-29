@@ -91,7 +91,19 @@ export class Flight extends Component {
             });
         }
     }
+    getAirports = ()=>{
+        const airportOptions = [];
+        const airports = localStorage.getItem('airports');
+        for(var i=0;i<airports.length;i++){
+            const airport = airports[i]
+            airportOptions.push(
+                <option>{airport}</option>
+            );
+        }
+        return airportOptions;
+    }
     render() {
+        const airportOptions = this.getAirports();
         return(
             <div className="main">
                 <div className="bg-flight"></div>
@@ -101,8 +113,7 @@ export class Flight extends Component {
                             <div className="column-left">
                                 <div className="form-input">
                                     <datalist id="airports">
-                                        <option>BBS</option>
-                                        <option>CAL</option>
+                                        {airportOptions}
                                     </datalist>
                                     <input name="from" onChange={this.handleFromChange} autoComplete="on" list="airports" placeholder="Departure" style={{fontWeight:"bolder"}}/>
                                 </div>
@@ -117,8 +128,7 @@ export class Flight extends Component {
                             <div className="column-left">
                                 <div className="form-input">
                                     <datalist id="airports">
-                                        <option>BBS</option>
-                                        <option>CAL</option>
+                                        {airportOptions}
                                     </datalist>
                                     <input name="to" onChange={this.handleToChange} autoComplete="on" list="airports" placeholder="Arrival" style={{fontWeight:"bolder"}}/>
                                 </div>

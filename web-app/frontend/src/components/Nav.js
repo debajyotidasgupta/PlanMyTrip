@@ -26,6 +26,17 @@ export class Nav extends Component {
         })
         
     }
+    getFlights = e=>{
+        e.preventDefault();
+
+        axios.get('http://127.0.0.1:5000/airport/').then(res=>{
+            console.log("China called")
+            localStorage.setItem('airports',res.data.airports)
+            this.props.history.push({
+                pathname: '/flight'
+            })
+        })
+    }
     render() {
         const name= localStorage.getItem('name');
         let logAccount;
@@ -61,7 +72,7 @@ export class Nav extends Component {
                         <div className="drop-content">
                             <ul>
                                 <li><a href="/hotel">Hotel</a></li>
-                                <li><a href="/flight">Flight</a></li>
+                                <li><a href="/flight" onClick={this.getFlights}>Flight</a></li>
                                 <li><a href="#">Cruise</a></li>
                                 <li><a href="/train">Train</a></li>
                                 <li><a href="#">Bus</a></li>
