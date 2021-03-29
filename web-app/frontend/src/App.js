@@ -11,7 +11,7 @@ import Flight from './components/Flight'
 import Train from './components/Train'
 import Footer from './components/Footer'
 import Hotel from './components/Hotel'
-import Hotel from './components/Blog'
+import Blog from './components/Blog'
 import Account from './components/Account'
 
 function App() {
