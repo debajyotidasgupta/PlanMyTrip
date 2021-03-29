@@ -7,6 +7,8 @@ from app.models.flight import Flight, FlightSeat, FlightBooking
 from app.models.boarding_points import Airport
 from app.models.address import Address
 
+from datetime import datetime
+
 api = Namespace('flight',description='Flight Booking system')
 
 # user_id: localStorage.getItem('user_id'),
@@ -86,43 +88,23 @@ class FlightBook(Resource):
         AND f.departure = '{}'
         AND fs.seat_type = '{}'
         AND fs.fare = {}
+        LIMIT {}
         """
-        flights = q1.getAll(departure)
-        
-        start_date = api.payload['start_date']
-        end_date = api.payload['end_date']
 
-        days = datetime.strptime(end_date, "%Y-%m-%d") - datetime.strptime(start_date, "%Y-%m-%d")
+        res = Query(query=q1)
+        seats = [a for a in res.getAll(flight_id,airlines,departure,seat_type,fare,seats)]
 
-        if days.days <= 0:
-            return {
-                "message": "Invalid input"
-            }, 403
+        q2 = []
 
-        amount = cost * days.days
-        no_of_persons = api.payload['no_of_persons']
-        booking_id = uuid4()
+        now = datetime.now().strftime("%Y-%m-%d")
+        for s in seats:
+            q2.append(
+            "INSERT INTO FlightBooking VALUES ({},{},{},'{}',NULL,{},TRUE)"\
+                .format(usr.user_id,s.flight_id,s.seat_no,now,fare))
 
-        query = [
-            "SELECT COUNT(*) INTO @cnt FROM HotelBooking\
-                WHERE hotel_id = {} AND room_no = {}\
-                AND NOT (start_date > '{}' OR end_date < '{}');"\
-                    .format(hotel_id, room_no, end_date, start_date),
-            
-            "INSERT INTO HotelBooking VALUES (\
-                IF(@cnt > 0, -1, {}), {}, {}, CURRENT_TIMESTAMP(),\
-                '{}', '{}', {}, 'All is well',\
-                {}, 0, '{}');"\
-                    .format(usr.user_id, hotel_id, room_no, start_date,
-                    end_date, no_of_persons, amount, booking_id)
-        ]
-
-        tx = Transaction(query=query)
+        tx = Transaction(query=q2)
         try:
             tx.execute()
-            q = Query("SELECT booking_id FROM HotelBooking WHERE booking_id = '{}';")
-            res = q.getAll(booking_id)
-            assert len(res) == 1
             return {
                 "message": "Booking successful"
             }, 201
