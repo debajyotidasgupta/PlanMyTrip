@@ -1,7 +1,6 @@
 import { Button } from '@material-ui/core'
 import React, { Component } from 'react'
 import '../styles/Blog.scss'
-import Signup from './Signup'
 
 export default class Blog extends Component {
 

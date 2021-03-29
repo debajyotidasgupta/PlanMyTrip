@@ -12,6 +12,7 @@ import Train from './components/Train'
 import Footer from './components/Footer'
 import Hotel from './components/Hotel'
 import Blog from './components/Blog'
+import BlogPost from './components/BlogPost'
 import Account from './components/Account'
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/train" component={ Train }></Route>
         <Route exact path="/train/results" component={ Landing }></Route>
         <Route exact path="/blog" component={ Blog }></Route>
+        <Route exact path="/blogPost" component={ BlogPost }></Route>
         <Route exact path='/account' component={ Account }></Route>
         {/* <Footer /> */ }
       </div>
