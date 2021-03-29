@@ -41,7 +41,7 @@ class HotelGet(Resource):
         GROUP BY h.hotel_id
         HAVING COUNT(DISTINCT r.room_no) > COUNT(DISTINCT hb.room_no)
         """
-
+        
         res = Query(query=query)
         return {
             "hotels": [a for a in res.getAll(city, start_date, end_date)]

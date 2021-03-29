@@ -1,17 +1,14 @@
 
 from flask import request
 from flask_restplus import Namespace, Resource, fields
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models.base import Query
 from app.models.blog import Blog, Comment
 
 api = Namespace("blog", description="User Blogs")
 
 userBlog = api.model('Blog', {
-    'author_id': fields.Integer(required=True),
-    'created_at': fields.Date(required=True),
     'title': fields.String(required=True),
-    'rating': fields.Integer(required=False),
     'short_description': fields.String(required=True),
     'content': fields.String(required=True),
 })
@@ -34,18 +31,31 @@ class blogs(Resource):
     
 @api.route('/blogPost')
 class blogPost(Resource):
+    # @api.expect(userBlog, validate=True)
     @login_required
-    @api.expect(userBlog, validate=True)
     def post(self):   
-        form = request.form
+        user = current_user
+        data = dict()
 
-        curBlog = Blog(**form)
-        curBlog.save()
+        data['author_id'] = str(user.user_id)
+        data['title'] = api.payload['title']
+        data['short_description'] = api.payload['short_description']
+        data['content'] = api.payload['content']
 
-        return {
-            "message": 'Blog created Successfully'
-        }, 200
+        new_blog = Blog(**data)
+        print(new_blog)
+        
+        try:
+            new_blog.save()        
 
+            return {
+                "message": 'Blog created Successfully'
+            }, 200
+        except:
+            return {
+                "message": 'Blog creation Error'
+            }, 400
+            
 
 @api.route('/<int:blog_id>')
 class showBlog(Resource):

@@ -5,7 +5,7 @@ class Blog(Model):
     SCHEMA = {
         "blog_id": "blog_id int PRIMARY KEY AUTO_INCREMENT",
         "author_id": "author_id int",
-        "created_at": "created_at datetime",
+        "created_at": "created_at datetime default(current_timestamp())",
         "title": "title varchar(255)",
         "rating": "rating int default(3)",
         "short_description": "short_description varchar(255)",

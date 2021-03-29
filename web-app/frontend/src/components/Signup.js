@@ -130,7 +130,7 @@ export class Signup extends Component {
 
             //console.log(requestOptions);
             myHeaders.append("Content-type","application/json");
-            fetch("http://127.0.0.1:5000/auth/register", {
+            fetch("/api/auth/register", {
                 method: 'POST',
                 headers: myHeaders,
                 body: JSON.stringify({

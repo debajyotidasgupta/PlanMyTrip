@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_restplus import Api
 from flask_cors import CORS
 
@@ -20,9 +20,12 @@ db.app = app
 db.init_app(app)
 login_manager.init_app(app)
 app.config.from_mapping(**CONFIG)
-cors = CORS(app, supports_credentials=True)
+cors = CORS(app, supports_credentials=True, origins=['http://lvh.me:3000'])
 
-api = Api(app)
+
+restapi = Blueprint('restapi', __name__)
+api = Api(restapi)
+app.register_blueprint(restapi, url_prefix='/api')
 
 api.add_namespace(authNS, path="/auth")
 api.add_namespace(blogNS, path="/blog")
