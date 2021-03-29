@@ -30,8 +30,8 @@ export class Login extends Component {
             password: this.state.password,
         }
         
-        axios.post('http://127.0.0.1:5000/auth/login',user,{withCredentials: true}).then(res=>{
-            console.log(res.data);
+        axios.post('/api/auth/login',user,{withCredentials: true}).then(res=>{
+            console.log(res);
             localStorage.setItem('name',res.data.name);
             localStorage.setItem('email',res.data.email);
             localStorage.setItem('phone',res.data.phone);

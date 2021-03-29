@@ -75,8 +75,7 @@ export class Flight extends Component {
                 ticket_class: this.state.class,
                 passengers: this.state.nop,
             }
-            axios.get('http://127.0.0.1:5000/flight/',{params:data}).then(res=>{
-                console.log("Bhutan called")
+            axios.get('/api/flight/',{params:data}).then(res=>{
                 this.props.history.push({
                     pathname: '/flight/results',
                     state: {
@@ -92,7 +91,7 @@ export class Flight extends Component {
         for(var i=0;i<airports.length;i++){
             const airport = airports[i]
             airportOptions.push(
-                <option>{airport}</option>
+                <option>{airport.city}</option>
             );
         }
         return airportOptions;
