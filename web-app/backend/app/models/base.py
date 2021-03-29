@@ -120,6 +120,10 @@ class Model:
     def __repr__(self):
         return self.__class__.__name__ + "(" + str(self.__dict__) + ")"
 
+    def toJSON(self):
+        return {
+            k: self.__dict__.get(k, None) for k in self.SCHEMA.keys() if not k.startswith("!")
+        }
 
     @staticmethod
     def formatInput(s, col):
