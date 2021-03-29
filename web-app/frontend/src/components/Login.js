@@ -37,6 +37,7 @@ export class Login extends Component {
             localStorage.setItem('phone',res.data.phone);
             localStorage.setItem('user_type',res.data.user_type);
             localStorage.setItem('rating',res.data.rating);
+            localStorage.setItem('user_id',res.data.user_id);
             this.props.history.push({
                 pathname: '/'
             })
