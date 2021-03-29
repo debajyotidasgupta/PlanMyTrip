@@ -30,10 +30,15 @@ export class Nav extends Component {
         e.preventDefault();
 
         axios.get('http://127.0.0.1:5000/airport/').then(res=>{
-            console.log("China called")
-            localStorage.setItem('airports',res.data.airports)
+            //console.log("China called")
+            //localStorage.setItem('airports',JSON.stringify(res.data.airports))
+            //console.log("airports=");
+            //console.log(localStorage.getItem('airports'));
             this.props.history.push({
-                pathname: '/flight'
+                pathname: '/flight',
+                state: {
+                    airports: res.data.airports,
+                }
             })
         })
     }

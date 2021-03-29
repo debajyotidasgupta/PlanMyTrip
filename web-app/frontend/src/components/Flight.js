@@ -16,6 +16,7 @@ export class Flight extends Component {
             doj: '',
             class: '',
             nop: 0,
+            airports: typeof this.props.location.state === 'undefined' ? [] : this.props.location.state.airports
         };
     }
     handleFromChange = (e) => {
@@ -69,8 +70,8 @@ export class Flight extends Component {
         if(this.validateInputs()){
             console.log("nop="+this.state.nop)
             const data = {
-                from: this.state.source,
-                to: this.state.destination,
+                from: this.state.from,
+                to: this.state.to,
                 date_of_journey: this.state.doj,
                 ticket_class: this.state.class,
                 passengers: this.state.nop,
@@ -88,11 +89,12 @@ export class Flight extends Component {
     }
     getAirports = ()=>{
         const airportOptions = [];
-        const airports = localStorage.getItem('airports');
+        const airports = this.state.airports;
+        console.log("Length="+airports.length);
         for(var i=0;i<airports.length;i++){
             const airport = airports[i]
             airportOptions.push(
-                <option>{airport}</option>
+                <option>{airport.city}</option>
             );
         }
         return airportOptions;

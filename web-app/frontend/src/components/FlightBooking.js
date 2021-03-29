@@ -4,7 +4,7 @@ import {Button} from '@material-ui/core'
 import { Redirect, withRouter } from 'react-router-dom'
 import axios from 'axios'
 
-export class FlightResult extends Component {
+export class FlightBooking extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -44,7 +44,9 @@ export class FlightResult extends Component {
     getFlights = ()=>{
         const flightOptions = [];
         const flights = this.state.flights;
-        const className = "row-even"
+        console.log("flightd=")
+        console.log(flights)
+        var className = "row-even"
         for(var i=0;i<flights.length;i++){
             const flight = flights[i];
             if(i%2==0)
@@ -53,12 +55,12 @@ export class FlightResult extends Component {
             className = "row-odd"
             flightOptions.push(
                 <tr className={className}>
-                    <th>flight.flight_id</th>
-                    <th>flight.airlines</th>
-                    <th>flight.departure</th>
-                    <th>flight.seat_type</th>
-                    <th>flight.seats</th>
-                    <th>flight.fare</th>
+                    <th>{flight.flight_id}</th>
+                    <th>{flight.airlines}</th>
+                    <th>{flight.departure}</th>
+                    <th>{flight.seat_type}</th>
+                    <th>{flight.seats}</th>
+                    <th>{flight.fare}</th>
                     <th value={i}><Button
                             type="submit"
                             fullWidth
@@ -134,4 +136,4 @@ export class FlightResult extends Component {
     }
 }
 
-export default withRouter(FlightResult);
+export default withRouter(FlightBooking);
