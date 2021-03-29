@@ -27,17 +27,18 @@ class FlightGet(Resource):
         passengers = int(request.args.get('passengers'))
 
         query = """
-        SELECT f.flight_id, f.airlines, fs.seat_type, COUNT(DISTINCT fs.seat_no)
+        SELECT f.flight_id, f.airlines, f.departure, fs.seat_type, COUNT(DISTINCT fs.seat_no) AS seats
         FROM Flight f, FlightSeat fs, Address ads, Address addd, Airport aps, Airport apd
         WHERE f.source = aps.airport_id AND f.destination = apd.airport_id
         AND aps.airport_id=ads.address_id AND apd.airport_id=addd.address_id
         AND ads.city = '{}' AND addd.city = '{}'
-        AND f.departure = '{}'
+        AND f.departure >= '{}'
         AND fs.seat_type = '{}'
         AND f.flight_id = fs.flight_id
         AND (f.flight_id,fs.seat_no) NOT IN (SELECT fb.flight_id, fb.seat_no FROM FlightBooking fb)
-        GROUP BY f.flight_id, f.airlines, fs.seat_type
+        GROUP BY f.flight_id, f.airlines, f.departure, fs.seat_type
         HAVING COUNT(DISTINCT fs.seat_no) >= {}
+        ORDER BY f.departure, f.airlines
         """
 
         res = Query(query=query)
