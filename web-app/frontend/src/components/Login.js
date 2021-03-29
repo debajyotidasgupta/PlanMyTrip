@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../styles/Login.scss'
 import {Button} from '@material-ui/core'
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
 
 export class Login extends Component {
     constructor(props){
@@ -24,15 +24,22 @@ export class Login extends Component {
     }
     handleSubmit = e=>{
         e.preventDefault();
+
+        const user = {
+            email: this.state.email,
+            password: this.state.password,
+        }
         
-        /*axios.post('https://0468eb026a63.ap.ngrok.io/auth/login',{user},{withCredentials: true}).then(res=>{
+        axios.post('http://127.0.0.1:5000/auth/login',user,{withCredentials: true}).then(res=>{
             console.log("Pakistan")
             console.log(res.body);
-            return(
-                <Redirect to={"/light/results"}/>
-            );
-        })*/
-        var myHeaders = new Headers();
+            console.log(res.headers);
+            //<Redirect to={"/account"}/>
+            this.props.history.push({
+                pathname: '/account'
+            })
+        })
+        /*var myHeaders = new Headers();
         myHeaders.append("Cookie", document.cookie);
 
         //var requestOptions = ;
@@ -46,11 +53,11 @@ export class Login extends Component {
                 email: this.state.email,
                 password: this.state.password,
             }),
-            credentials: 'same-origin'
+            credentials: 'include'
         })
         .then(response => {
             console.log(response);
-        });
+        });*/
     }
     render(){
     return (
@@ -89,4 +96,4 @@ export class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);
