@@ -8,6 +8,7 @@ from app.views.cli import db_cli
 from app.controllers.auth import login_manager
 from app.views.auth import api as authNS
 from app.views.blog import api as blogNS
+from app.views.blog import api as hotelNS
 
 
 
@@ -23,6 +24,7 @@ api = Api(app)
 
 api.add_namespace(authNS, path="/auth")
 api.add_namespace(blogNS, path="/blog")
+api.add_namespace(hotelNS, path="/hotel")
 
 
 app.cli.add_command(db_cli)
