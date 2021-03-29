@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../styles/FlightBooking.scss'
 import {Button} from '@material-ui/core'
 import { Redirect, withRouter } from 'react-router-dom'
+import axios from 'axios'
 
 export class FlightResult extends Component {
     constructor(props){
@@ -12,7 +13,34 @@ export class FlightResult extends Component {
     }
     book = (i)=>{
         console.log(i);
+        /*axios.post('http://127.0.0.1:5000/flight/booking',details,{withCredentials: true}).then(res=>{
+            console.log("Bhutan called")
+            this.props.history.push({
+                pathname: '/'
+            })
+        });*/
+        this.props.history.push({
+            pathname: '/flight/booking',
+            state: {
+                flight: this.state.flights[i]
+            }
+        })
     } 
+    book2 = ()=>{
+        this.props.history.push({
+            pathname: '/flight/booking',
+            state: {
+                flight: {
+                    flight_id: 1,
+                    airlines: 'Kingfisher',
+                    departure: '2001-01-01',
+                    seat_type: 'economic',
+                    seats: 2,
+                    fare: 40000,
+                }
+            }
+        })
+    }
     getFlights = ()=>{
         const flightOptions = [];
         const flights = this.state.flights;
@@ -28,15 +56,15 @@ export class FlightResult extends Component {
                     <th>flight.flight_id</th>
                     <th>flight.airlines</th>
                     <th>flight.departure</th>
-                    <th>flight.deat_type</th>
+                    <th>flight.seat_type</th>
                     <th>flight.seats</th>
+                    <th>flight.fare</th>
                     <th value={i}><Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className="submit"
-                            onClick={this.book}
                             onClick={this.book.bind(this,i)}
                             >Book
                         </Button>
@@ -67,6 +95,7 @@ export class FlightResult extends Component {
                                 <th>DEPARTURE TIME</th>
                                 <th>SEAT TYPE</th>
                                 <th>AVAILABLE SEATS</th>
+                                <th>FARE</th>
                                 {/* <th>Book</th> */}
                                 {/* <th><Button
                                     type="submit"
@@ -79,6 +108,22 @@ export class FlightResult extends Component {
                                 </th> */}
                                 <th>Book</th>
                             </tr>
+                                <th>1</th>
+                                <th>Kingfisher</th>
+                                <th>2001-01-01</th>
+                                <th>economic</th>
+                                <th>3</th>
+                                <th>40000</th>
+                                <th><Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className="submit"
+                                        onClick={this.book2}
+                                        >Book
+                                    </Button>
+                                </th>
                             {this.getFlights()}
                         </table>
                         </div>
