@@ -19,7 +19,7 @@ class User(Model, UserMixin):
 
     def get_info(self):
         return {
-            k: self.__dict__[k] for k in self.SCHEMA.keys()
+            k: self.__dict__[k] for k in self.SCHEMA.keys() if not(k in ["password", "dob"])
         }
 
 
