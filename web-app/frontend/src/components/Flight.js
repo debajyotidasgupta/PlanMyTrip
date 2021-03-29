@@ -4,7 +4,8 @@ import {Button} from '@material-ui/core'
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import FlightLandIcon from '@material-ui/icons/FlightLand';
 import FlightIcon from '@material-ui/icons/Flight'
-import { Redirect } from 'react-router-dom'
+import { Redirect, withRouter } from 'react-router-dom'
+import axios from 'axios'
 
 export class Flight extends Component {
     constructor(props){
@@ -66,29 +67,23 @@ export class Flight extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         if(this.validateInputs()){
-            var myHeaders = new Headers();
-            myHeaders.append("Cookie", document.cookie);
-            myHeaders.append("Content-type","application/json");
-            fetch("http://127.0.0.1:5000/flight-search", {
-                method: 'POST',
-                headers: myHeaders,
-                body: JSON.stringify({
-                    from: this.state.source,
-                    to: this.state.destination,
-                    date_of_journey: this.state.doj,
-                    ticket_class: this.state.class,
-                    passengers: this.state.nop,              
-                }),
-                credentials: 'same-origin'
+            console.log("nop="+this.state.nop)
+            const data = {
+                from: this.state.source,
+                to: this.state.destination,
+                date_of_journey: this.state.doj,
+                ticket_class: this.state.class,
+                passengers: this.state.nop,
+            }
+            axios.get('http://127.0.0.1:5000/flight/',{params:data}).then(res=>{
+                console.log("Bhutan called")
+                this.props.history.push({
+                    pathname: '/flight/results',
+                    state: {
+                        flights: res.data.flights
+                    },
             })
-            .then(response => {
-                return(
-                    <Redirect to={{
-                        pathname: "/flights/results",
-                        state: response,
-                    }}/>
-                );
-            });
+        })
         }
     }
     getAirports = ()=>{
@@ -152,9 +147,9 @@ export class Flight extends Component {
                                 <div class="form-input">
                                     <select onChange={this.handleClassChange}>
                                         <option value="" disabled selected>Select Ticket Class</option>
-                                        <option value="premium-business">Premium Business</option>
-                                        <option value="business">Business</option>
-                                        <option value="first-class">First Class</option>
+                                        <option value="premium_business_class">Premium Business</option>
+                                        <option value="business_class">Business</option>
+                                        <option value="first_class">First Class</option>
                                         <option value="economy">Economy</option>
                                     </select>
                                 </div>
@@ -185,4 +180,4 @@ export class Flight extends Component {
     }
 }
 
-export default Flight;
+export default withRouter(Flight);

@@ -10,6 +10,7 @@ from app.views.auth import api as authNS
 from app.views.blog import api as blogNS
 from app.views.hotel import api as hotelNS
 from app.views.airport import api as airportNS
+from app.views.flight import api as flightNS
 
 
 
@@ -27,7 +28,7 @@ api.add_namespace(authNS, path="/auth")
 api.add_namespace(blogNS, path="/blog")
 api.add_namespace(hotelNS, path="/hotel")
 api.add_namespace(airportNS, path='/airport')
-
+api.add_namespace(flightNS, path='/flight')
 
 app.cli.add_command(db_cli)
 

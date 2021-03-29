@@ -14,6 +14,7 @@ import Hotel from './components/Hotel'
 import Blog from './components/Blog'
 import BlogPost from './components/BlogPost'
 import Account from './components/Account'
+import FlightBooking from './components/FlightBooking'
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route exact path="/" component={ Landing }></Route>
         <Route exact path="/hotel" component={ Hotel }></Route>
         <Route exact path="/flight" component={ Flight }></Route>
-        <Route exact path="/flight/results" render={(props)=> <Landing/>}></Route>
+        <Route exact path="/flight/results" render={(props)=><FlightBooking {...props}/> }></Route>
         <Route exact path="/train" component={ Train }></Route>
         <Route exact path="/train/results" component={ Landing }></Route>
         <Route exact path="/blog" component={ Blog }></Route>
