@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core'
 import React, { Component } from 'react'
 import '../styles/Blog.scss'
 import Signup from './Signup'
@@ -10,6 +11,11 @@ export default class Blog extends Component {
                 <div className='head'>
                     <h1>Blogs</h1>
                     <h3>Read About World Around You</h3>
+
+                    <Button
+                        className="add"
+                        href={ "/blogPost?user_id=" + localStorage.getItem('user_id') }
+                    >Add New Blog</Button>
                 </div>
 
                 <div className="content">
