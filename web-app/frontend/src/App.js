@@ -11,6 +11,7 @@ import Flight from './components/Flight'
 import Train from './components/Train'
 import Footer from './components/Footer'
 import Hotel from './components/Hotel'
+import Hotel from './components/Blog'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route exact path="/flight/results" render={(props)=> <Landing/>}></Route>
         <Route exact path="/train" component={ Train }></Route>
         <Route exact path="/train/results" component={ Landing }></Route>
+        <Route exact path="/blog" component={ Blog }></Route>
         {/* <Footer /> */ }
       </div>
     </Router>
