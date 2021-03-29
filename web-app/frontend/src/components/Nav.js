@@ -49,7 +49,7 @@ export class Nav extends Component {
                     <div className="drop-content">
                         <ul>
                             <li><a href="/account">My Account</a></li>
-                            <li><a href="#" onClick={ this.handleLogout }>Logout</a></li>
+                            <li><a href="/" onClick={this.handleLogout}>Logout</a></li>
                         </ul>
                     </div>
                 </div>
