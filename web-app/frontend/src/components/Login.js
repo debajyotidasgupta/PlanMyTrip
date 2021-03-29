@@ -31,12 +31,14 @@ export class Login extends Component {
         }
         
         axios.post('http://127.0.0.1:5000/auth/login',user,{withCredentials: true}).then(res=>{
-            console.log("Pakistan")
-            console.log(res.body);
-            console.log(res.headers);
-            //<Redirect to={"/account"}/>
+            console.log(res.data);
+            localStorage.setItem('name',res.data.name);
+            localStorage.setItem('email',res.data.email);
+            localStorage.setItem('phone',res.data.phone);
+            localStorage.setItem('user_type',res.data.user_type);
+            localStorage.setItem('rating',res.data.rating);
             this.props.history.push({
-                pathname: '/account'
+                pathname: '/'
             })
         })
         /*var myHeaders = new Headers();
