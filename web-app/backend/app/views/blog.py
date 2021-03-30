@@ -47,7 +47,8 @@ class blogs(Resource):
        
         if len(all_blogs)==0:
             return {
-                "message": "No blog found for now"
+                "message": "No blog found for now",
+                'blogs': []
             }, 201
         else:
             return {
@@ -87,11 +88,49 @@ class blogPost(Resource):
 @api.route('/<int:blog_id>')
 class showBlog(Resource):
     def get(self, blog_id):
-        data = Query(f"SELECT * FROM Blog WHERE blog_id = {blog_id}", model=Comment)
-        res = Query(f"SELECT * FROM Comment WHERE blog_id = {blog_id}", model=Comment)
+        data = Query(f"SELECT * FROM Blog WHERE blog_id = {blog_id}", model=Blog)
+        res = Query(f"\
+        SELECT c.comment_id, c.created_at, c.content, u.name \
+        FROM Comment c, User u \
+        WHERE c.user_id = u.user_id and \
+        blog_id = {blog_id}", model=Comment)
+
+
+        comments = [comment.__dict__ for comment in res.getAll()]
+        print(comments)
+
+        cur = data.getOne().__dict__
+        blog = cur
+        blog['created_at'] = f"{cur['created_at'].day} {month_to_name[cur['created_at'].month]}, {cur['created_at'].year}"
+
+        for i in range(len(comments)):
+            cur = comments[i]
+            comments[i]['created_at'] = f"{cur['created_at'].day} {month_to_name[cur['created_at'].month]}, {cur['created_at'].year}"
 
         return {
             "message": "Comment fetched successfully",
-            "blog":  data.getOne(),
-            "comment": res.getAll()
+            "blog":  blog,
+            "comments": comments
         }, 200
+
+@api.route('/comment')
+class comment(Resource):
+    @login_required
+    def post(self):
+        data = dict()
+        data['user_id'] = str(current_user.user_id)
+        data['blog_id'] = api.payload["blog_id"]
+        data['content'] = api.payload["content"]
+
+        new_comment = Comment(**data)
+        
+        try:
+            new_comment.save()
+            return {
+                'message': "Comment Added"
+            }, 200
+
+        except:
+            return {
+                'message': "Error in saving comment"
+            }, 400

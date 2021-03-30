@@ -13,24 +13,31 @@ export default class Blog extends Component {
 
     componentDidMount() {
         axios.get('/api/blog/').then(res => {
+            console.log(res)
             this.setState({
                 blogs: res.data.blogs
             })
-            console.log(this.state)
         })
     }
 
+
+
     render() {
+        let blog_button;
+        if (localStorage.getItem('name')) {
+            blog_button = <Button
+                className="add"
+                href={ "/blogPost?user_id=" + localStorage.getItem('user_id') }
+            >Add New Blog</Button>
+        }
+        
         return (
             <div className="main">
                 <div className='head'>
                     <h1>Blogs</h1>
                     <h3>Read About World Around You</h3>
+                    { blog_button }
 
-                    <Button
-                        className="add"
-                        href={ "/blogPost?user_id=" + localStorage.getItem('user_id') }
-                    >Add New Blog</Button>
                 </div>
 
                 <div className="content">
@@ -73,7 +80,7 @@ class SingleBlog extends Component {
     render() {
         return (
             <div className="single">
-                <h1><a href={ "singleBlog/" + this.props.blog_id }>{ this.props.title }</a></h1>
+                <h1><a href={ "blogSingle/" + this.props.blog_id }>{ this.props.title }</a></h1>
                 <div className="meta">
                     <h4>{ this.props.author }</h4>
                     <h4>|</h4>
@@ -97,7 +104,7 @@ class SingleSide extends Component {
         return (
             <div className="single-side">
                 <img src={ this.props.url } />
-                <h1><a href={ "singleBlog/" + this.props.blog_id }>{ this.props.title }</a></h1>
+                <h1><a href={ "blogSingle/" + this.props.blog_id }>{ this.props.title }</a></h1>
                 <div className="meta">
                     <h4>{ this.props.author }</h4>
                     <h4>|</h4>

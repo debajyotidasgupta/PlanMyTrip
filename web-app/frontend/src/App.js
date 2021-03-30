@@ -2,18 +2,19 @@
 import './App.css';
 
 //====================== COMPONENTS ============================
-import Nav from './components/Nav'
-import Landing from './components/Landing';
-import Login from './components/Login'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Landing from './components/Landing';
 import Signup from './components/Signup'
-import Flight from './components/Flight'
+import Login from './components/Login'
+import Nav from './components/Nav'
+import Blog from './components/Blog'
+import Hotel from './components/Hotel'
 import Train from './components/Train'
 import Footer from './components/Footer'
-import Hotel from './components/Hotel'
-import Blog from './components/Blog'
-import BlogPost from './components/BlogPost'
+import Flight from './components/Flight'
 import Account from './components/Account'
+import BlogPost from './components/BlogPost'
+import BlogSingle from './components/BlogSingle'
 import FlightBooking from './components/FlightBooking'
 import FlightBookingFinal from './components/FlightBookingFinal'
 
@@ -33,6 +34,7 @@ function App() {
         <Route exact path="/train/results" component={ Landing }></Route>
         <Route exact path="/blog" component={ Blog }></Route>
         <Route exact path="/blogPost" component={ BlogPost }></Route>
+        <Route exact path="/blogSingle/:id" component={ BlogSingle }></Route>
         <Route exact path='/account' component={ Account }></Route>
         {/* <Footer /> */ }
       </div>

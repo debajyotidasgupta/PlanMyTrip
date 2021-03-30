@@ -17,7 +17,7 @@ class Blog(Model):
 
 class Comment(Model):
     SCHEMA = {
-        "comment_id": "comment_id int primary key",
+        "comment_id": "comment_id int primary key auto_increment",
         "blog_id": "blog_id int not null",
         "user_id": "user_id int not null",
         "created_at": "created_at datetime default(current_timestamp())",
