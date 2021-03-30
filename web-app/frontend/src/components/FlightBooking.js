@@ -98,34 +98,8 @@ export class FlightBooking extends Component {
                                 <th>SEAT TYPE</th>
                                 <th>AVAILABLE SEATS</th>
                                 <th>FARE</th>
-                                {/* <th>Book</th> */}
-                                {/* <th><Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className="submit"
-                                    >Book
-                                </Button>
-                                </th> */}
                                 <th>Book</th>
                             </tr>
-                                <th>1</th>
-                                <th>Kingfisher</th>
-                                <th>2001-01-01</th>
-                                <th>economic</th>
-                                <th>3</th>
-                                <th>40000</th>
-                                <th><Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        color="primary"
-                                        className="submit"
-                                        onClick={this.book2}
-                                        >Book
-                                    </Button>
-                                </th>
                             {this.getFlights()}
                         </table>
                         </div>

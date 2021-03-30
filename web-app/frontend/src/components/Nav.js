@@ -29,7 +29,7 @@ export class Nav extends Component {
     getFlights = e => {
         e.preventDefault();
 
-        axios.get('http://127.0.0.1:5000/airport/').then(res=>{
+        axios.get('/api/airport/').then(res=>{
             //console.log("China called")
             //localStorage.setItem('airports',JSON.stringify(res.data.airports))
             //console.log("airports=");
