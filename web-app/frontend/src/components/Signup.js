@@ -165,7 +165,7 @@ export class Signup extends Component {
         <div class="main">
             <div className="bg">
             </div>
-            <div className="paper">
+            <div className="paper-signup">
                 <form className="form-signup" onSubmit={this.handleSubmit} noValidate>
                     <div class="row">
                     <div class="column">
