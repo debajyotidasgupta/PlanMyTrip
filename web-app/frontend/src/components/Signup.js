@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import '../styles/Signup.scss'
 import {Button} from '@material-ui/core'
+import axios from 'axios'
+import { Redirect, withRouter } from 'react-router-dom'
 
 var emailRegEx = new RegExp(/^[a-zA-Z0-9]+@[a-zA-z0-9]+.[a-zA-Z]+/);
 
@@ -123,28 +125,39 @@ export class Signup extends Component {
         })*/
         if(this.validateInputs())
         {
-            var myHeaders = new Headers();
-            myHeaders.append("Cookie", document.cookie);
-
-            //var requestOptions = ;
-
-            //console.log(requestOptions);
-            myHeaders.append("Content-type","application/json");
-            fetch("/api/auth/register", {
-                method: 'POST',
-                headers: myHeaders,
-                body: JSON.stringify({
-                    email: this.state.email,
-                    password: this.state.password,
-                    dob: this.state.dob,
-                    name: this.state.name,
-                    phone: this.state.phone                
-                }),
-                credentials: 'same-origin'
+            // var myHeaders = new Headers();
+            // myHeaders.append("Cookie", document.cookie);
+            // myHeaders.append("Content-type","application/json");
+            // fetch("/api/auth/register", {
+            //     method: 'POST',
+            //     headers: myHeaders,
+            //     body: JSON.stringify({
+            //         email: this.state.email,
+            //         password: this.state.password,
+            //         dob: this.state.dob,
+            //         name: this.state.name,
+            //         phone: this.state.phone                
+            //     }),
+            //     credentials: 'same-origin'
+            // })
+            // .then(response => {
+            //     console.log(response);
+            // });
+            const user = {
+                email: this.state.email,
+                password: this.state.password,
+                dob: this.state.dob,
+                name: this.state.name
+            }
+            axios.post('/api/auth/register',user,{withCredentials:true}).then(res=>{
+                if(res.data.message=="User created")
+                    alert("Registration done. Try to login using your email and password.")
+                else
+                    alert("Registration failed")
+                this.props.history.push({
+                    pathname: '/'
+                })
             })
-            .then(response => {
-                console.log(response);
-            });
         }
     }
     render(){
@@ -152,7 +165,7 @@ export class Signup extends Component {
         <div class="main">
             <div className="bg">
             </div>
-            <div className="paper">
+            <div className="paper-signup">
                 <form className="form-signup" onSubmit={this.handleSubmit} noValidate>
                     <div class="row">
                     <div class="column">
@@ -227,4 +240,4 @@ export class Signup extends Component {
     }
 }
 
-export default Signup;
+export default withRouter(Signup);

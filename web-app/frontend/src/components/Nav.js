@@ -29,10 +29,16 @@ export class Nav extends Component {
     getFlights = e => {
         e.preventDefault();
 
-        axios.get('/api/airport/').then(res => {
-            localStorage.setItem('airports', res.data.airports)
+        axios.get('http://127.0.0.1:5000/airport/').then(res=>{
+            //console.log("China called")
+            //localStorage.setItem('airports',JSON.stringify(res.data.airports))
+            //console.log("airports=");
+            //console.log(localStorage.getItem('airports'));
             this.props.history.push({
-                pathname: '/flight'
+                pathname: '/flight',
+                state: {
+                    airports: res.data.airports,
+                }
             })
         })
     }

@@ -17,7 +17,7 @@ $sweet-pink: #fe435b;
     position: absolute;
     top: 0;
     bottom: 0;
-    margin: 300px 250px;
+    margin: 100px 250px;
     height: 50vh;
     width: 30vw;
     overflow: hidden;
@@ -74,6 +74,7 @@ $sweet-pink: #fe435b;
         justify-content: space-around;
         padding-left: 25px;
         padding-right: 25px;
+        margin-top: -100px;
     
         a {
           text-decoration: none;
