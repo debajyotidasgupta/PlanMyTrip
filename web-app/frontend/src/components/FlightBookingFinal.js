@@ -18,12 +18,12 @@ export class FlightBookingFinal extends Component {
                 seats: 0,
                 fare: 0,
             } : {
-                flight_id: this.props.location.flight.flight_id,
-                airlines: this.props.location.flight.airlines,
-                departure: this.props.location.flight.departure,
-                seat_type: this.props.location.flight.seat_type,
-                seats: this.props.location.flight.seats,
-                fare: parseFloat(this.props.location.flight.fare)
+                flight_id: this.props.location.state.flight.flight_id,
+                airlines: this.props.location.state.flight.airlines,
+                departure: this.props.location.state.flight.departure,
+                seat_type: this.props.location.state.flight.seat_type,
+                seats: this.props.location.state.flight.seats,
+                fare: parseFloat(this.props.location.state.flight.fare)
             },
             totalFare: 0, 
             seats: 0,
@@ -43,7 +43,8 @@ export class FlightBookingFinal extends Component {
                 seats: this.state.seats,
                 fare: this.state.flight.fare,
             }
-            axios.post('http://127.0.0.1:5000/flight/booking',data,{withCredentials:true}).then(res=>{
+            console.log(data);
+            axios.post('/api/flight/booking',data,{withCredentials:true}).then(res=>{
                 alert('Payment successful')
                 this.props.history.push({
                     pathname: '/'
