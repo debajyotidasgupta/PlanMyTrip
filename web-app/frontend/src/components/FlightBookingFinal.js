@@ -45,11 +45,22 @@ export class FlightBookingFinal extends Component {
             }
             console.log(data);
             axios.post('/api/flight/booking',data,{withCredentials:true}).then(res=>{
-                alert('Payment successful')
-                this.props.history.push({
-                    pathname: '/'
+                if(res.status>201)
+                {
+                    alert('Booking could not be done')
+                    this.props.history.push({
+                        pathname: '/'
+                    })
+                }
+                else{
+                    this.props.history.push({
+                        pathname: '/Payment',
+                        state: {
+                            bookings: res.data.bookings
+                        }
+                    })
+                }
             })
-        })
         }
     }
     setTotalFare = (e)=>{

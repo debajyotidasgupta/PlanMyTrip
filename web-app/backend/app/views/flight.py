@@ -11,14 +11,6 @@ from datetime import datetime
 
 api = Namespace('flight',description='Flight Booking system')
 
-# user_id: localStorage.getItem('user_id'),
-        # flight_id : this.state.flight.flight_id,
-        # airlines: this.state.flight.airlines,
-        # departure: this.state.flight.departure,
-        # seat_type: this.state.flight.seat_type,
-        # seats: this.state.seats,
-        # totalFare: this.state.totalFare,
-
 flight = api.model('Flight', {
     'flight_id': fields.Integer('Id of the flight to book'),
     'airlines': fields.String(),
@@ -26,6 +18,11 @@ flight = api.model('Flight', {
     'seat_type': fields.String(),
     'seats': fields.Integer('No of seats'),
     'fare': fields.Float('Fare of each seat')
+})
+
+booking = api.model('FlightBooking',{
+    'flight_id' : fields.Integer('Id of flight'),
+    'seat_no' : fields.Integer('Seat no')
 })
 
 @api.route('/')
@@ -88,6 +85,8 @@ class FlightBook(Resource):
         AND f.departure = '{}'
         AND fs.seat_type = '{}'
         AND fs.fare = {}
+        AND (fs.flight_id, fs.seat_no) NOT IN
+        (SELECT flight_id, seat_no FROM FlightBooking) 
         LIMIT {}
         """
 
@@ -97,19 +96,55 @@ class FlightBook(Resource):
         q2 = []
 
         now = datetime.now().strftime("%Y-%m-%d")
-        print(seats)
         for s in seats:
             q2.append(
-            "INSERT INTO FlightBooking VALUES ({},{},{},'{}',NULL,{},TRUE)"\
+            "INSERT INTO FlightBooking VALUES ({},{},{},'{}',NULL,{:.2f},FALSE);"\
                 .format(usr.user_id,s['flight_id'],s['seat_no'],now,fare))
 
         tx = Transaction(query=q2)
         try:
             tx.execute()
+            q3 = []
+            for s in seats:
+                q3.append(
+                    "SELECT flight_id, seat_no FROM FlightBooking WHERE flight_id={} AND user_id={} AND seat_no={}"\
+                        .format(s['flight_id'],usr.user_id,s['seat_no'])
+                )
+            results = []
+            for qry in q3:
+                ress = Query(query=qry)
+                results.append(ress.getOne())
+            print("results")
+            print(results)
             return {
-                "message": "Booking successful"
+                "bookings": results
             }, 201
         except Exception as e:
+            print(e)
             return {
                 "message": "Booking failed"
             }, 403
+
+@api.route("/payment")
+class FlightBookPayment(Resource):
+    @api.expect([booking], validate=True)
+    @login_required
+    def post(self):
+        usr = current_user
+        bookings = api.payload['bookings']
+
+        q1 = """
+        UPDATE FlightBooking
+        SET is_paid=TRUE
+        WHERE user_id={} AND flight_id ={} AND seat_no={}
+        """
+        try:
+            for booking in bookings:
+                Query(query=q1.format(usr.user_id,booking['flight_id'],booking['seat_no']))
+            return {
+                "message": "Payment successful"
+            }, 200
+        except Exception as e:
+            return {
+                "message": "Payment failed"
+            }, 400
