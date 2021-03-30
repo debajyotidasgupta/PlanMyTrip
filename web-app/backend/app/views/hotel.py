@@ -31,19 +31,22 @@ class HotelGet(Resource):
 
 
         query = """
-        SELECT h.hotel_id, h.hotel_name, a.address_line_1, a.address_line_2, a.city, a.state, a.country, a.pincode
+        SELECT h.hotel_id, h.hotel_name, a.*, CAST(MIN(r.cost) AS CHAR) AS min_cost
         FROM Hotel h
+        JOIN Room r ON r.hotel_id = h.hotel_id
         JOIN Address a ON a.address_id = h.address_id
-        LEFT JOIN Room r ON h.hotel_id = r.hotel_id
-        LEFT JOIN HotelBooking hb ON h.hotel_id = hb.hotel_id
-        WHERE a.city = '{}' AND (NOT (hb.end_date < '{}' OR hb.start_date > '{}') OR ISNULL(hb.start_date))
-        GROUP BY h.hotel_id
-        HAVING COUNT(DISTINCT r.room_no) > COUNT(DISTINCT hb.room_no)
+        WHERE a.city = '{}'
+        AND CONCAT_WS(h.hotel_id, r.room_no) NOT IN (
+            SELECT DISTINCT CONCAT_WS(hb.hotel_id, hb.room_no)
+            FROM HotelBooking hb
+            WHERE GREATEST(DATEDIFF(LEAST('{}', hb.end_date), GREATEST('{}', hb.start_date)), 0) > 0
+        )
+        GROUP BY h.hotel_id;
         """
         
         res = Query(query=query)
         return {
-            "hotels": [a for a in res.getAll(city, start_date, end_date)]
+            "hotels": [a for a in res.getAll(city, end_date, start_date)]
         }
 
 
@@ -144,3 +147,32 @@ class HotelBook(Resource):
             return {
                 "message": str(e)
             }, 403
+
+
+@api.route("/rooms")
+class HotelRoom(Resource):
+    @api.doc(params={
+        'hotel_id': 'ID of hotel',
+        'start_date': 'Booking Start Date',
+        'end_date': 'Booking End Date'
+    })
+    @login_required
+    def get(self):
+        
+        query = """
+        SELECT r.hotel_id, r.room_no, CAST(r.cost AS CHAR) AS cost
+        FROM Room r
+        WHERE r.hotel_id = {}
+        AND CONCAT_WS(r.hotel_id, r.room_no) NOT IN (
+            SELECT DISTINCT CONCAT_WS(hb.hotel_id, hb.room_no)
+            FROM HotelBooking hb
+            WHERE GREATEST(DATEDIFF(LEAST('{}', hb.end_date), GREATEST('{}', hb.start_date)), 0) > 0
+        )
+        """
+        hotel_id = request.args.get("hotel_id")
+        start_date = request.args.get("start_date")
+        end_date = request.args.get("end_date")
+        q = Query(query)
+        return {
+            "rooms": q.getAll(hotel_id, end_date, start_date)
+        }
