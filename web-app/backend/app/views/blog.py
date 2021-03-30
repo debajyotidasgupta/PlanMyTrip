@@ -1,4 +1,3 @@
-
 from flask import request
 from flask_restplus import Namespace, Resource, fields
 from flask_login import login_required, current_user
@@ -11,15 +10,42 @@ userBlog = api.model('Blog', {
     'title': fields.String(required=True),
     'short_description': fields.String(required=True),
     'content': fields.String(required=True),
+    'url': fields.String(required=True),
 })
+
+month_to_name = {
+    1: 'January',
+    2: 'February',
+    3: 'March',
+    4: 'April',
+    5: 'May',
+    6: 'June',
+    7: 'July',
+    8: 'August',
+    9: 'Sepetember',
+    10: 'October',
+    11: 'November',
+    12: 'December'
+}
 
 @api.route('/')
 class blogs(Resource):
     def get(self):
-        resultSet = Query('SELLECT * FROM Blog ORDER BY rating ASC', model = Blog)
-        all_blogs = resultSet.getAll()
+        resultSet = Query('''
+            SELECT b.blog_id, u.name, b.created_at, b.title, b.rating, b.short_description, b.content, b.url
+            FROM Blog b, User u 
+            ORDER BY rating ASC
+        ''', model = Blog)
 
-        if len(all_blogs)!=0:
+        all_blogs = resultSet.getAll()
+        print(all_blogs)
+        
+        for i, blog in enumerate(all_blogs):
+            cur = blog.__dict__
+            all_blogs[i] = cur
+            all_blogs[i]['created_at']=f"{cur['created_at'].day} {month_to_name[cur['created_at'].month]}, {cur['created_at'].year}"
+       
+        if len(all_blogs)==0:
             return {
                 "message": "No blog found for now"
             }, 201
@@ -41,6 +67,7 @@ class blogPost(Resource):
         data['title'] = api.payload['title']
         data['short_description'] = api.payload['short_description']
         data['content'] = api.payload['content']
+        data['url'] = api.payload['url']
 
         new_blog = Blog(**data)
         print(new_blog)

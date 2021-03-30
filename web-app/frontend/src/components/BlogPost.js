@@ -11,7 +11,8 @@ export class BlogPost extends Component {
         this.state = {
             title: null,
             short_description: null,
-            content: null
+            content: null,
+            url: null
         }
     }
 
@@ -36,17 +37,27 @@ export class BlogPost extends Component {
         })
     }
 
+    urlChange = (e) => {
+        this.setState({
+            ...this.state,
+            url: e.target.value
+        })
+    }
+
     onSubmitHandler = (e) => {
         e.preventDefault();
 
         const data = {
             title: this.state.title,
             short_description: this.state.short_description,
-            content: this.state.content
+            content: this.state.content,
+            url: this.state.url
         }
 
         axios.post('/api/blog/blogPost', data, { withCredentials: true }).then(res => {
-            console.log(res)
+            this.props.history.push({
+                pathname: '/blog'
+            })
         })
     }
 
@@ -59,6 +70,7 @@ export class BlogPost extends Component {
                         <div>
                             <input id="author" name="author" placeholder={ localStorage.getItem('name') } value={ localStorage.getItem('name') } disabled></input>
                             <input id="title" placeholder="Title" onChange={ this.titleChange }></input>
+                            <input id="url" placeholder="Url" onChange={ this.urlChange } placeholder="https://google.com"></input>
                         </div>
 
                         <textarea
