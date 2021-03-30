@@ -7,6 +7,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import Button from '@material-ui/core/Button';
+import { useLocation } from 'react-router-dom'
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
     body: {
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Payment() {
+export default function Payment(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState('');
     const [error, setError] = React.useState(false);
@@ -46,6 +48,7 @@ export default function Payment() {
         setHelperText(' ');
         setError(false);
     };
+    const location = useLocation();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -57,8 +60,24 @@ export default function Payment() {
             setHelperText('Sorry, wrong answer!');
             setError(true);
         } else {
-            setHelperText('Please select an option.');
-            setError(true);
+            //setHelperText('Please select an option.');
+            //setError(true);
+            axios.post('/api/flight/payment',{bookings:location.state.bookings},{withCredentials:true}).then(res=>{
+                if(Response.status>201)
+                {
+                    alert('Payment failed');
+                    props.history.push({
+                        pathname: '/',
+                    })
+                }
+                else
+                {
+                    alert('Payment successful!!');
+                    props.history.push({
+                        pathname: '/',
+                    })
+                }
+            })
         }
     };
 
