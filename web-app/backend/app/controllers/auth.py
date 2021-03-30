@@ -24,6 +24,8 @@ def check_password(pwd, hsh):
 
 def create_user(req):
     req["password"] = hash_password(req["password"])
+    if "phone" in req:
+        req["phone"] = int(req["phone"])
     usr = User(**req)
     usr.save()
 

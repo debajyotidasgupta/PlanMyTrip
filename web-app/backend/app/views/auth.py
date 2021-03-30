@@ -14,7 +14,8 @@ user = api.model('User', {
     'email': fields.String(required=True),
     'password': fields.String(required=True),
     'name': fields.String(required=True),
-    'dob': fields.Date(required=True)
+    'dob': fields.Date(required=True),
+    'phone': fields.String()
 })
 
 
