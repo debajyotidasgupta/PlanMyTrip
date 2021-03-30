@@ -21,11 +21,11 @@ api = Namespace('flight',description='Flight Booking system')
 
 flight = api.model('Flight', {
     'flight_id': fields.Integer('Id of the flight to book'),
-    'airlines': fields.Integer('Airlines of the flight to book'),
+    'airlines': fields.String(),
     'departure': fields.Date(),
     'seat_type': fields.String(),
     'seats': fields.Integer('No of seats'),
-    'totalFare': fields.Float('Total Fare')
+    'fare': fields.Float('Fare of each seat')
 })
 
 @api.route('/')
@@ -81,7 +81,7 @@ class FlightBook(Resource):
         fare = float(api.payload['fare'])
 
         q1 = """
-        SELECT fs.flight_id, fs.seat_no, FROM Flight f, FLightSeat fs
+        SELECT fs.flight_id, fs.seat_no FROM Flight f, FlightSeat fs
         WHERE f.flight_id = fs.flight_id
         AND f.flight_id = {}
         AND f.airlines = '{}'
@@ -97,10 +97,11 @@ class FlightBook(Resource):
         q2 = []
 
         now = datetime.now().strftime("%Y-%m-%d")
+        print(seats)
         for s in seats:
             q2.append(
             "INSERT INTO FlightBooking VALUES ({},{},{},'{}',NULL,{},TRUE)"\
-                .format(usr.user_id,s.flight_id,s.seat_no,now,fare))
+                .format(usr.user_id,s['flight_id'],s['seat_no'],now,fare))
 
         tx = Transaction(query=q2)
         try:
