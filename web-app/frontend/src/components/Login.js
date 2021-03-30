@@ -31,16 +31,24 @@ export class Login extends Component {
         }
         
         axios.post('/api/auth/login',user,{withCredentials: true}).then(res=>{
-            console.log(res);
-            localStorage.setItem('name',res.data.name);
-            localStorage.setItem('email',res.data.email);
-            localStorage.setItem('phone',res.data.phone);
-            localStorage.setItem('user_type',res.data.user_type);
-            localStorage.setItem('rating',res.data.rating);
-            localStorage.setItem('user_id',res.data.user_id);
-            this.props.history.push({
-                pathname: '/'
-            })
+            if(res.status != 200)
+            {
+                alert('Could not log in')
+                this.props.history.push({
+                    pathname: '/'
+                })
+            }
+            else{
+                localStorage.setItem('name',res.data.name);
+                localStorage.setItem('email',res.data.email);
+                localStorage.setItem('phone',res.data.phone);
+                localStorage.setItem('user_type',res.data.user_type);
+                localStorage.setItem('rating',res.data.rating);
+                localStorage.setItem('user_id',res.data.user_id);
+                this.props.history.push({
+                    pathname: '/'
+                })
+            }
         })
         /*var myHeaders = new Headers();
         myHeaders.append("Cookie", document.cookie);
