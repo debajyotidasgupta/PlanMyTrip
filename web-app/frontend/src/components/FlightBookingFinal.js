@@ -36,7 +36,6 @@ export class FlightBookingFinal extends Component {
         e.preventDefault();
         if(this.validateInputs()){
             const data = {
-                user_id: localStorage.getItem('user_id'),
                 flight_id : this.state.flight.flight_id,
                 airlines: this.state.flight.airlines,
                 departure: this.state.flight.departure,

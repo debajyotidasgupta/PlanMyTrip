@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import '../styles/Signup.scss'
 import {Button} from '@material-ui/core'
-import axios from 'axios';
+import axios from 'axios'
+import { Redirect, withRouter } from 'react-router-dom'
 
 var emailRegEx = new RegExp(/^[a-zA-Z0-9]+@[a-zA-z0-9]+.[a-zA-Z]+/);
 
@@ -146,11 +147,13 @@ export class Signup extends Component {
                 email: this.state.email,
                 password: this.state.password,
                 dob: this.state.dob,
-                name: this.state.name,
-                phone: this.state.phone,
+                name: this.state.name
             }
-            axios.post('/api/auth/register',user).then(res=>{
-                alert("Registration done. Try to login using your email and password.")
+            axios.post('/api/auth/register',user,{withCredentials:true}).then(res=>{
+                if(res.data.message=="User created")
+                    alert("Registration done. Try to login using your email and password.")
+                else
+                    alert("Registration failed")
                 this.props.history.push({
                     pathname: '/'
                 })
@@ -237,4 +240,4 @@ export class Signup extends Component {
     }
 }
 
-export default Signup;
+export default withRouter(Signup);
